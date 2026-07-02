@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Tienda Electrónica | Profesional</title>
+    <style>
+        :root { --bg: #0b0e14; --card: #161b22; --accent: #007bff; --text: #e6edf3; }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); margin: 0; }
+        .sector { display: none; padding: 20px; }
+        .activo { display: block; }
+        
+        header { background: #010409; padding: 15px 30px; display: flex; justify-content: space-between; border-bottom: 2px solid var(--accent); position: sticky; top:0; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; padding: 20px; }
+        .card { background: var(--card); padding: 15px; border-radius: 10px; border: 1px solid #30363d; text-align: center; }
+        .card img { width: 100%; height: 120px; object-fit: cover; border-radius: 8px; margin-bottom: 10px; }
+        .btn { background: var(--accent); color: white; border: none; padding: 10px; border-radius: 6px; cursor: pointer; width: 100%; margin-top: 5px; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h2 style="margin:0; color:var(--accent);">Tienda Electrónica</h2>
+    <div>
+        <button onclick="cambiarSector('tienda-sector')">Catálogo</button>
+        <button onclick="cambiarSector('carrito-sector')">🛒 Carrito</button>
+        <button onclick="cambiarSector('pago-sector')">💳 Mi Tarjeta</button>
+        <button onclick="cerrarSesion()" style="background:#dc3545; color:white; border:none;">Salir</button>
+    </div>
+</header>
+
+<!-- LOGIN -->
+<div id="login-sector" class="sector activo">
+    <div style="max-width:300px; margin: 50px auto; text-align:center;">
+        <h2>Iniciar Sesión</h2>
+        <input type="text" id="user" placeholder="Usuario" style="width:100%; padding:10px; margin-bottom:10px;">
+        <button class="btn" onclick="iniciarSesion()">Ingresar</button>
+    </div>
+</div>
+
+<!-- TIENDA -->
+<div id="tienda-sector" class="sector">
+    <main class="grid" id="catalog"></main>
+</div>
+
+<!-- CARRITO -->
+<div id="carrito-sector" class="sector">
+    <h2>Tu Carrito</h2>
+    <div id="lista-carrito"></div>
+    <h3 id="total-carrito"></h3>
+    <button class="btn" onclick="pagarTodo()">Finalizar Compra</button>
+    <button class="btn" style="background:#555;" onclick="cambiarSector('tienda-sector')">Regresar a la tienda</button>
+</div>
+
+<!-- PAGO (Exclusivo) -->
+<div id="pago-sector" class="sector">
+    <div style="max-width:400px; margin:auto; background:var(--card); padding:20px; border-radius:10px;">
+        <h2>Configurar Tarjeta</h2>
+        <input type="text" id="t-input" placeholder="16 dígitos de tarjeta" style="width:100%; padding:10px; margin-bottom:10px;">
+        <button class="btn" onclick="guardarTarjeta()">Guardar Datos</button>
+        <button class="btn" style="background:#555;" onclick="cambiarSector('tienda-sector')">Regresar</button>
+    </div>
+</div>
+
+<script>
+    const productos = [
+        {nombre: "Laptop Pro", precio: 24000, img: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=200"},
+        {nombre: "Monitor 4K", precio: 7000, img: "https://images.unsplash.com/photo-1527443224154-c4a3942d3a35?w=200"},
+        {nombre: "Teclado Mec", precio: 1600, img: "https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=200"},
+        {nombre: "Mouse Gamer", precio: 1200, img: "https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?w=200"},
+        {nombre: "Cámara Pro", precio: 17000, img: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=200"},
+        {nombre: "Smartphone", precio: 20000, img: "https://images.unsplash.com/photo-1598327105666-5b893514948a?w=200"},
+        {nombre: "Audífonos", precio: 6000, img: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=200"},
+        {nombre: "Smartwatch", precio: 4000, img: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=200"},
+        {nombre: "SSD 1TB", precio: 1900, img: "https://images.unsplash.com/photo-1597872200969-2b65356bd6be?w=200"},
+        {nombre: "Tablet Gráf", precio: 3200, img: "https://images.unsplash.com/photo-1544244015-0df443ffc6d9?w=200"},
+        {nombre: "Webcam HD", precio: 1000, img: "https://images.unsplash.com/photo-1601267946338-348232938891?w=200"},
+        {nombre: "Router WiFi", precio: 2400, img: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=200"},
+        {nombre: "Power Bank", precio: 1000, img: "https://images.unsplash.com/photo-1609592151626-aaad8593a201?w=200"},
+        {nombre: "Brazo Mic", precio: 500, img: "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=200"},
+        {nombre: "Lente 50mm", precio: 4000, img: "https://images.unsplash.com/photo-1581044777550-4cfa60707c03?w=200"},
+        {nombre: "Adaptador", precio: 400, img: "https://images.unsplash.com/photo-1593642632823-8f785ba67e76?w=200"},
+        {nombre: "Gimbal", precio: 2600, img: "https://images.unsplash.com/photo-1616782352845-e1176b6b7722?w=200"},
+        {nombre: "Interfaz", precio: 4000, img: "https://images.unsplash.com/photo-1571344834181-8d26ade6c19f?w=200"},
+        {nombre: "Cargador", precio: 700, img: "https://images.unsplash.com/photo-1583573665586-53303d15b00c?w=200"},
+        {nombre: "Micrófono", precio: 3000, img: "https://images.unsplash.com/photo-1590602847861-f357a9332bbc?w=200"}
+    ];
+    let carrito = [];
+
+    function cambiarSector(id) {
+        document.querySelectorAll('.sector').forEach(s => s.classList.remove('activo'));
+        document.getElementById(id).classList.add('activo');
+        if(id === 'carrito-sector') renderCarrito();
+    }
+
+    function iniciarSesion() {
+        const u = document.getElementById('user').value;
+        if(["Suwon", "Ricardo", "Jaure", "Edwin"].includes(u)) {
+            localStorage.setItem('user', u);
+            cambiarSector('tienda-sector');
+            renderCatalogo();
+        } else { alert("Usuario no autorizado"); }
+    }
+
+    function renderCatalogo() {
+        document.getElementById('catalog').innerHTML = productos.map(p => `
+            <div class="card">
+                <img src="${p.img}">
+                <h4>${p.nombre}</h4>
+                <p>$${p.precio.toLocaleString()} MXN</p>
+                <button class="btn" onclick="agregar('${p.nombre}', ${p.precio})">Agregar</button>
+            </div>
+        `).join('');
+    }
+
+    function agregar(n, p) {
+        if(!localStorage.getItem('user')) { alert("Inicia sesión"); return; }
+        if(!localStorage.getItem('tarjeta')) { alert("Registra tu tarjeta primero"); cambiarSector('pago-sector'); return; }
+        carrito.push({n, p});
+        alert(n + " agregado.");
+    }
+
+    function renderCarrito() {
+        const list = document.getElementById('lista-carrito');
+        const totalDiv = document.getElementById('total-carrito');
+        let total = 0;
+        list.innerHTML = carrito.map(p => { total += p.p; return `<p>${p.n} - $${p.p.toLocaleString()}</p>`; }).join('');
+        totalDiv.innerText = "Total: $" + total.toLocaleString() + " MXN";
+    }
+
+    function pagarTodo() {
+        alert("Compra exitosa de $" + document.getElementById('total-carrito').innerText);
+        carrito = [];
+        cambiarSector('tienda-sector');
+    }
+
+    function guardarTarjeta() {
+        const t = document.getElementById('t-input').value;
+        if(t.length === 16) { localStorage.setItem('tarjeta', t); alert("Guardada"); cambiarSector('tienda-sector'); }
+        else alert("16 dígitos requeridos");
+    }
+
+    function cerrarSesion() { localStorage.clear(); location.reload(); }
+
+    if(localStorage.getItem('user')) { cambiarSector('tienda-sector'); renderCatalogo(); }
+</script>
+</body>
+</html>
