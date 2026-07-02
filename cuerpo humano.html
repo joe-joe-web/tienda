@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enciclopedia de Anatomía Humana</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background-color: #000000; color: #ffffff; margin: 0; line-height: 1.6; }
+        header { background: #301934; padding: 2rem; text-align: center; border-bottom: 5px solid #800020; }
+        nav { position: sticky; top: 0; background-color: #1a1a1a; padding: 1rem; text-align: center; border-bottom: 2px solid #800020; z-index: 1000; }
+        nav a { color: #ffffff; text-decoration: none; margin: 0 10px; font-weight: bold; font-size: 0.9em; }
+        .container { max-width: 900px; margin: auto; padding: 20px; }
+        .seccion { background: #1a1a1a; margin: 40px 0; padding: 25px; border-left: 5px solid #800020; border-radius: 8px; }
+        .img-container { width: 100%; margin-bottom: 15px; border: 2px solid #301934; overflow: hidden; }
+        img { width: 100%; height: auto; display: block; border-radius: 4px; }
+        .tabla-tecnica { width: 100%; border-collapse: collapse; margin-top: 15px; background: #000; }
+        .tabla-tecnica th, .tabla-tecnica td { border: 1px solid #301934; padding: 12px; text-align: left; }
+        .tabla-tecnica th { background-color: #800020; color: white; }
+        h2 { color: #800020; margin-top: 0; }
+        @media (max-width: 600px) { nav { display: flex; flex-wrap: wrap; justify-content: center; } }
+    </style>
+</head>
+<body>
+
+<header><h1>Enciclopedia de Anatomía</h1></header>
+
+<nav>
+    <a href="#esqueletico">Esquelético</a>
+    <a href="#muscular">Muscular</a>
+    <a href="#circulatorio">Circulatorio</a>
+    <a href="#nervioso">Nervioso</a>
+    <a href="#respiratorio">Respiratorio</a>
+    <a href="#digestivo">Digestivo</a>
+</nav>
+
+<main class="container">
+
+    <!-- Sistema Esquelético -->
+    <section id="esqueletico" class="seccion">
+        <h2>Sistema Esquelético</h2>
+        <div class="img-container"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Human_skeleton_front_no_labels.svg/300px-Human_skeleton_front_no_labels.svg.png" alt="Esqueleto"></div>
+        <p>Soporte estructural compuesto por 206 huesos.</p>
+        <table class="tabla-tecnica">
+            <tr><th>Elemento</th><th>Función</th></tr>
+            <tr><td>Axial</td><td>Protección del SNC y órganos internos.</td></tr>
+            <tr><td>Apendicular</td><td>Locomoción y manipulación.</td></tr>
+        </table>
+    </section>
+
+    <!-- Sistema Muscular -->
+    <section id="muscular" class="seccion">
+        <h2>Sistema Muscular</h2>
+        <div class="img-container"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Muscular_system.svg/300px-Muscular_system.svg.png" alt="Músculos"></div>
+        <p>Red de más de 600 músculos responsables de la contracción y movimiento.</p>
+        <table class="tabla-tecnica">
+            <tr><th>Tipo</th><th>Característica</th></tr>
+            <tr><td>Estriado</td><td>Control voluntario, unión a huesos.</td></tr>
+            <tr><td>Liso</td><td>Control involuntario, paredes de órganos.</td></tr>
+        </table>
+    </section>
+
+    <!-- Sistema Circulatorio -->
+    <section id="circulatorio" class="seccion">
+        <h2>Sistema Circulatorio</h2>
+        <div class="img-container"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Circulatory_System_en.svg/300px-Circulatory_System_en.svg.png" alt="Circulatorio"></div>
+        <p>Sistema de transporte cerrado impulsado por el corazón.</p>
+        <table class="tabla-tecnica">
+            <tr><th>Componente</th><th>Dato</th></tr>
+            <tr><td>Corazón</td><td>Bomba tetracameral.</td></tr>
+            <tr><td>Vascular</td><td>Arterias, venas y capilares.</td></tr>
+        </table>
+    </section>
+
+    <!-- Sistema Nervioso -->
+    <section id="nervioso" class="seccion">
+        <h2>Sistema Nervioso</h2>
+        <div class="img-container"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Nervous_system_diagram.svg/300px-Nervous_system_diagram.svg.png" alt="Nervioso"></div>
+        <p>Coordina acciones y funciones corporales mediante impulsos eléctricos.</p>
+        <table class="tabla-tecnica">
+            <tr><th>División</th><th>Función</th></tr>
+            <tr><td>SNC</td><td>Cerebro y médula espinal.</td></tr>
+            <tr><td>SNP</td><td>Nervios que conectan el cuerpo.</td></tr>
+        </table>
+    </section>
+
+    <!-- Sistema Respiratorio -->
+    <section id="respiratorio" class="seccion">
+        <h2>Sistema Respiratorio</h2>
+        <div class="img-container"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Respiratory_system_complete_en.svg/300px-Respiratory_system_complete_en.svg.png" alt="Respiratorio"></div>
+        <p>Permite el intercambio de gases vitales con el entorno.</p>
+        <table class="tabla-tecnica">
+            <tr><th>Órgano</th><th>Función</th></tr>
+            <tr><td>Pulmones</td><td>Hematosis (intercambio O2/CO2).</td></tr>
+            <tr><td>Vías</td><td>Conducción y filtrado de aire.</td></tr>
+        </table>
+    </section>
+
+    <!-- Sistema Digestivo -->
+    <section id="digestivo" class="seccion">
+        <h2>Sistema Digestivo</h2>
+        <div class="img-container"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Digestive_system_diagram_edit.svg/300px-Digestive_system_diagram_edit.svg.png" alt="Digestivo"></div>
+        <p>Descompone los alimentos para su absorción en el torrente sanguíneo.</p>
+        <table class="tabla-tecnica">
+            <tr><th>Proceso</th><th>Ubicación</th></tr>
+            <tr><td>Digestión</td><td>Estómago e intestino delgado.</td></tr>
+            <tr><td>Absorción</td><td>Vellosidades intestinales.</td></tr>
+        </table>
+    </section>
+
+</main>
+
+</body>
+</html>
